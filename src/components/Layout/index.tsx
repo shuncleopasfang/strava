@@ -50,31 +50,23 @@ const Layout = ({ children }: React.PropsWithChildren) => {
       </Helmet>
       <Header />
       <div className="w-full overflow-x-hidden">
-        {isScaled ? (
+        <div
+          style={{
+            height:
+              isScaled && canvasHeight ? `${canvasHeight * scale}px` : 'auto',
+          }}
+        >
           <div
-            className="mb-10 flex w-full max-w-full flex-col gap-6 px-4 py-4"
+            className="mb-16 flex max-w-none origin-top-left flex-row gap-8 p-8"
             ref={canvasRef}
+            style={{
+              width: isScaled ? `${DESIGN_WIDTH}px` : '100%',
+              transform: isScaled ? `scale(${scale})` : undefined,
+            }}
           >
             {children}
           </div>
-        ) : (
-          <div
-            style={{
-              height:
-                isScaled && canvasHeight ? `${canvasHeight * scale}px` : 'auto',
-            }}
-          >
-            <div
-              className="mb-16 flex max-w-none origin-top-left flex-row gap-8 p-8"
-              ref={canvasRef}
-              style={{
-                width: '100%',
-              }}
-            >
-              {children}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </>
   );
